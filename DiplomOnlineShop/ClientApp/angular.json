@@ -129,5 +129,8 @@
       }
     }
   },
-  "defaultProject": "DiplomOnlineShop"
+  "defaultProject": "DiplomOnlineShop",
+  "cli": {
+    "analytics": false
+  }
 }
