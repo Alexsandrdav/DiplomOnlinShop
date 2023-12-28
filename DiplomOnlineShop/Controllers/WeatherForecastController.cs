@@ -12,22 +12,20 @@ namespace DiplomOnlineShop.Controllers
     };
 
         private readonly ILogger<WeatherForecastController> _logger;
+        private readonly OnlineShopContext dbContext;
 
-        public WeatherForecastController(ILogger<WeatherForecastController> logger)
+        public WeatherForecastController(ILogger<WeatherForecastController> logger, OnlineShopContext dbContext)
         {
             _logger = logger;
+            this.dbContext = dbContext;
         }
 
         [HttpGet]
-        public IEnumerable<WeatherForecast> Get()
+        public IEnumerable<Product> Get()
         {
-            return Enumerable.Range(1, 5).Select(index => new WeatherForecast
-            {
-                Date = DateTime.Now.AddDays(index),
-                TemperatureC = Random.Shared.Next(-20, 55),
-                Summary = Summaries[Random.Shared.Next(Summaries.Length)]
-            })
-            .ToArray();
+            var products = dbContext.Products.ToList();
+
+            return products;
         }
     }
 }
