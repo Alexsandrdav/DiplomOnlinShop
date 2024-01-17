@@ -5,8 +5,9 @@
 CREATE TABLE IF NOT EXISTS public."Products"
 (
     "Id" integer NOT NULL GENERATED ALWAYS AS IDENTITY ( INCREMENT 1 START 1 MINVALUE 1 MAXVALUE 9223372036854775807 CACHE 1 ),
-    "Name" character varying(150) COLLATE pg_catalog."default",
-    "Description" character varying(2500) COLLATE pg_catalog."default",
+    "Name" character varying(150) NOT NULL,
+    "Description" character varying(2500),
+    "Price" money NOT NULL,
     CONSTRAINT "Products_pkey" PRIMARY KEY ("Id")
 )
 

@@ -1,0 +1,30 @@
+<h1 id="tableLabel">Orders</h1>
+
+<p>Available Orders</p>
+
+<p *ngIf="!orders"><em>Loading...</em></p>
+
+<table class='table table-striped' aria-labelledby="tableLabel" *ngIf="orders">
+  <thead>
+    <tr>
+      <th>Email</th>
+      <th>Phone</th>
+      <th>Date</th>
+      <th>Id</th>
+      <th>Products</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let order of orders">
+      <td>{{ order.email }}</td>
+      <td>{{ order.phone }}</td>
+      <td>{{ order.date | date: "dd-MM-YYYY hh:mm:ss" }}</td>
+      <td>{{ order.id }}</td>
+      <td>
+        <span *ngFor="let product of order.products">
+         {{ product.name }}<br>
+        </span>
+      </td>
+    </tr>
+  </tbody>
+</table>
