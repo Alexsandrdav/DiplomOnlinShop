@@ -4,7 +4,8 @@ import { Product } from '../fetch-data/fetch-data.component';
 
 @Component({
   selector: 'orders',
-  templateUrl: './orders.component.html'
+  templateUrl: './orders.component.html',
+  styleUrls: ['./orders.component.css']
 })
 export class OrdersComponent {
   public orders: Order[] = [];

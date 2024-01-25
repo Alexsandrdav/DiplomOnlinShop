@@ -1,6 +1,4 @@
-﻿-- Table: public.Products
-
--- DROP TABLE IF EXISTS public."Products";
+﻿
 
 CREATE TABLE IF NOT EXISTS public."Products"
 (
@@ -10,6 +8,11 @@ CREATE TABLE IF NOT EXISTS public."Products"
     "Price" money NOT NULL,
     CONSTRAINT "Products_pkey" PRIMARY KEY ("Id")
 )
+
+TABLESPACE pg_default;
+
+ALTER TABLE IF EXISTS public."Products"
+    OWNER to postgres;
 
 TABLESPACE pg_default;
 

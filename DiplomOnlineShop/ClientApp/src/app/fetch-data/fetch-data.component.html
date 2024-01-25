@@ -4,9 +4,22 @@
 
 <p *ngIf="!products"><em>Loading...</em></p>
 
+<form #form="ngForm" (ngSubmit)="onSubmit(form)">
+  <label for="name">Phone</label>
+  <input type="text" name="name" ngModel>
+  <br>
+  <label for="email">Email </label>
+  <input type="text" name="email" ngModel>
+  <br>
+  <input type="submit" value="Order">
+</form>
+
+<br>
+
 <table class='table table-striped' aria-labelledby="tableLabel" *ngIf="products">
   <thead>
     <tr>
+      <th>Choose</th>
       <th>Id</th>
       <th>Name</th>
       <th>Description</th>
@@ -15,6 +28,7 @@
   </thead>
   <tbody>
     <tr *ngFor="let product of products">
+      <td><input type="checkbox"></td>
       <td>{{ product.id }}</td>
       <td>{{ product.name }}</td>
       <td>{{ product.description }}</td>

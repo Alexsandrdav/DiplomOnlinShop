@@ -21,5 +21,25 @@ namespace DiplomOnlineShop.Controllers
 
             return orders;
         }
-    }
+        [HttpPut]
+        public void Post(OrderModel orderModel)
+        {
+            var order = new Order();
+            order.Email = orderModel.Email;
+            order.Phone = orderModel.Phone;
+            order.Date = DateTime.UtcNow;
+            order.Products = new List<Product>();
+            foreach (var id in orderModel.ProductIds)
+            {
+                var product = dbContext.Products.Single(x => x.Id == id);
+
+                order.Products.Add(product);
+            }
+
+
+            dbContext.Orders.Add(order);
+            dbContext.SaveChanges();
+        }
+
+    }    
 }
