@@ -34,7 +34,11 @@ namespace DiplomOnlineShop.Controllers
                 var product = dbContext.Products.Single(x => x.Id == id);
 
                 order.Products.Add(product);
+
+                order.Total = order.Total + product.Price;
             }
+     
+            
 
 
             dbContext.Orders.Add(order);

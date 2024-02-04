@@ -22,5 +22,6 @@ interface Order {
   phone: string;
   date: Date;
   id: number;
+  total: number;
   products: Product[];
 }

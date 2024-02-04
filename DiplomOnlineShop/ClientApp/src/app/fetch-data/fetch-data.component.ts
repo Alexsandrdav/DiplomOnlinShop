@@ -39,6 +39,23 @@ export class FetchDataComponent {
       this.productIds.push(product.id);
     }
   }
+
+  showCurrentPrice() {
+    let self = this;
+    let sum = 0;
+    this.productIds.forEach(function (productId) {
+      let res = self.products.find(function (product) {
+        if (productId == product.id) {
+          return true;
+        } else { return false; }
+      });
+
+      sum = sum + res!.price;
+    });
+
+    return sum;
+  }
+
 }
 
 export interface Product {
