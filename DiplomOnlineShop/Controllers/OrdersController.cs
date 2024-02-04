@@ -9,7 +9,7 @@ namespace DiplomOnlineShop.Controllers
     {
         private readonly OnlineShopContext dbContext;
 
-        public OrdersController(ILogger<ProductsController> logger, OnlineShopContext dbContext)
+        public OrdersController(OnlineShopContext dbContext)
         {
             this.dbContext = dbContext;
         }
@@ -22,7 +22,7 @@ namespace DiplomOnlineShop.Controllers
             return orders;
         }
         [HttpPut]
-        public void Post(OrderModel orderModel)
+        public void Create(OrderModel orderModel)
         {
             var order = new Order();
             order.Email = orderModel.Email;
