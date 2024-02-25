@@ -27,7 +27,7 @@ export class FetchDataComponent {
     productOrder.email = form.value.email;
     productOrder.productIds = this.productIds;
 
-    this.http.put(this.baseUrl + 'orders', productOrder).subscribe(() => {
+    this.http.post(this.baseUrl + 'orders', productOrder).subscribe(() => {
       alert("Order created");
     });
   }

@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 namespace DiplomOnlineShop.Controllers
@@ -15,13 +17,15 @@ namespace DiplomOnlineShop.Controllers
         }
 
         [HttpGet]
+
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         public IEnumerable<Order> Get()
         {
             var orders = dbContext.Orders.Include(x => x.Products).ToList();
 
             return orders;
         }
-        [HttpPut]
+        [HttpPost]
         public void Create(OrderModel orderModel)
         {
             var order = new Order();

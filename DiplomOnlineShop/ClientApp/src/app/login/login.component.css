@@ -2,7 +2,7 @@ label{
     padding-right:20px;
 }
 
-input[type=text] {
+input[type=text], input[type=password] {
   margin-top: 20px
 }
 
