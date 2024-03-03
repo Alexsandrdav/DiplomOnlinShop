@@ -23,10 +23,10 @@
           <li class="nav-item"
               [routerLinkActive]="['link-active']"
               [routerLinkActiveOptions]="{ exact: true }">
-            
+
             <a class="nav-link text-dark" [routerLink]="['/']">Home</a>
           </li>
-          <li class="nav-item" [routerLinkActive]="['link-active']">
+          <li *ngIf="!authorized()" class="nav-item" [routerLinkActive]="['link-active']">
 
             <a class="nav-link text-dark" [routerLink]="['/login']">Login</a>
 
@@ -35,8 +35,25 @@
 
             <a class="nav-link text-dark" [routerLink]="['/fetch-data']">Products</a>
           </li>
-          <li class="nav-item" [routerLinkActive]="['link-active']">
+          <li *ngIf="authorized()" class="nav-item" [routerLinkActive]="['link-active']">
             <a class="nav-link text-dark" [routerLink]="['/orders']">Orders</a>
+
+          </li>
+          <li *ngIf="authorized()" class="nav-item">
+            <p>
+
+              {{email}}
+            </p>
+
+
+
+          </li>
+          <li *ngIf="authorized()" class="nav-item">
+            <button (click)="logout()">
+              Log out
+            </button>
+
+
 
           </li>
         </ul>

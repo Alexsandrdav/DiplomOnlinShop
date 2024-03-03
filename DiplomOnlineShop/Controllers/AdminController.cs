@@ -1,8 +1,11 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
+using System.Security.Cryptography;
 using System.Text;
 
 namespace DiplomOnlineShop.Controllers
@@ -12,11 +15,12 @@ namespace DiplomOnlineShop.Controllers
     public class AdminController : ControllerBase
     {
 
-        private const string Email = "ABSD@tut.by";
-        private const string Password = "12345ABSD";
         private AppSetting options;
+        private readonly OnlineShopContext dbContext;
 
-        public AdminController(IOptions<AppSetting> options) {
+        public AdminController(IOptions<AppSetting> options, OnlineShopContext dbContext) {
+
+            this.dbContext = dbContext;
             this.options = options.Value;
         }
 
@@ -25,7 +29,14 @@ namespace DiplomOnlineShop.Controllers
         [Route("login")]
         public ActionResult Create(AdminModel adminModel)
         {
-            if (Email == adminModel.Email && Password == adminModel.Password)
+            var admin = dbContext.Admins.FirstOrDefault(x=>x.Email == adminModel.Email);
+            if (admin == null)
+            {
+                return StatusCode(StatusCodes.Status401Unauthorized);
+            }
+
+            var hash = HashPassword(adminModel.Password);
+            if (admin.PasswordHash == hash)
             {
                 SecurityTokenDescriptor tokenDescriptor = GetTokenDescriptor(adminModel.Email);
                 var tokenHandler = new JwtSecurityTokenHandler();
@@ -39,6 +50,16 @@ namespace DiplomOnlineShop.Controllers
                 return StatusCode(StatusCodes.Status401Unauthorized);
             }
 
+        }
+        private string HashPassword(string password)
+        {
+            using var sha = SHA256.Create();
+
+            var asBytes = Encoding.UTF8.GetBytes(password);
+
+            var hashed = sha.ComputeHash(asBytes);
+
+            return Convert.ToBase64String(hashed);
         }
 
         private SecurityTokenDescriptor GetTokenDescriptor(string email)

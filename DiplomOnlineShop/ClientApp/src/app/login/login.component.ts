@@ -2,6 +2,7 @@
 import { Component, Inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { NgForm } from '@angular/forms';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -13,11 +14,12 @@ export class LoginComponent {
 
   http: HttpClient;
   baseUrl: string;
+  activatedRoute: Router;
 
-  constructor(httpClient: HttpClient, @Inject('BASE_URL') baseUrl: string) {
+  constructor(httpClient: HttpClient, @Inject('BASE_URL') baseUrl: string, activatedRoute: Router) {
     this.http = httpClient;
     this.baseUrl = baseUrl;
-
+    this.activatedRoute = activatedRoute;
   }
 
   onSubmit(form: NgForm) {
@@ -25,9 +27,10 @@ export class LoginComponent {
     loginForm.password = form.value.password;
     loginForm.email = form.value.email;
 
-    this.http.post(this.baseUrl + 'admin/login', loginForm).subscribe({
+    this.http.post<LoginResult>(this.baseUrl + 'admin/login', loginForm).subscribe({
       next: data => {
-
+        localStorage.setItem("token", data.token);
+        this.activatedRoute.navigate(["/orders"]);
       },
       error: error => {
         alert("Email or password are incorrect");
@@ -48,4 +51,8 @@ export class LoginForm {
     this.password = "";
     
   }
+}
+export interface LoginResult
+{
+  token: string;
 }

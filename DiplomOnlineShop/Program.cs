@@ -1,5 +1,6 @@
 using DiplomOnlineShop;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
@@ -18,6 +19,8 @@ internal class Program
         builder.Services.AddDbContext<OnlineShopContext>(options =>
                     options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
         builder.Services.AddControllersWithViews().AddJsonOptions(x => x.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles);
+
+        builder.Services.AddScoped<IPasswordHasher<Admin>, PasswordHasher<Admin>>();
 
         IConfigurationSection settingsSection = builder.Configuration.GetSection("AppSettings");
         builder.Services.Configure<AppSetting>(settingsSection);

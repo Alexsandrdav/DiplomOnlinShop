@@ -11,7 +11,9 @@ export class OrdersComponent {
   public orders: Order[] = [];
 
   constructor(http: HttpClient, @Inject('BASE_URL') baseUrl: string) {
-    http.get<Order[]>(baseUrl + 'orders').subscribe(result => {
+    var token = localStorage.getItem("token");
+    var headers = { 'Authorization': 'Bearer ' + token };
+    http.get<Order[]>(baseUrl + 'orders', { headers } ).subscribe(result => {
       this.orders = result;
     }, error => console.error(error));
   }
