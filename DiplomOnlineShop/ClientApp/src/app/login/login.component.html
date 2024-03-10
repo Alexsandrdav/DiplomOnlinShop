@@ -1,13 +1,15 @@
 <h1>Login</h1>
 
 <form #form="ngForm" (ngSubmit)="onSubmit(form)">
-  <label for="email">Email </label>
-  <input type="text" name="email" ngModel>
-  <br>
-  <label for="password">Password</label>
-  <input type="password" name="password" ngModel>
-  <br>
-  
-  <input type="submit" value="Login">
+  <div class="boxLogin">
+    <label for="email">Email </label>
+    <input type="text" name="email" class="form-control" ngModel>
+  </div>
+  <div class="boxLogin">
+    <label for="password">Password</label>
+    <input type="password" name="password" ngModel class="form-control">
+  </div>
+
+  <input class="btn btn-outline-primary" type="submit" value="Login">
 </form>
 

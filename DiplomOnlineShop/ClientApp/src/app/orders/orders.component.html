@@ -7,7 +7,7 @@
 
 
 
-<table class='table table-striped' aria-labelledby="tableLabel" *ngIf="orders">
+<table class='table table-hover' aria-labelledby="tableLabel" *ngIf="orders">
   <thead>
     <tr>
 
@@ -20,7 +20,7 @@
     </tr>
   </thead>
   <tbody>
-    <tr *ngFor="let order of orders">
+    <tr *ngFor="let order of orders; let even = even; let odd = odd" [ngClass]="{ 'table-success': odd, 'table-danger': even }">
 
       <td>{{ order.email }}</td>
       <td>{{ order.phone }}</td>
